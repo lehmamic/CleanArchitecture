@@ -1,6 +1,7 @@
 ﻿using Ardalis.GuardClauses;
 using CleanArchitecture.Core.Projects.Events;
 using CleanArchitecture.SharedKernel;
+using CleanArchitecture.SharedKernel.Models;
 
 namespace CleanArchitecture.Core.Projects;
 

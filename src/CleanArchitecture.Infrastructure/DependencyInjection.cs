@@ -4,6 +4,7 @@ using CleanArchitecture.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NodaTime;
 
 namespace CleanArchitecture.Infrastructure;
 
@@ -17,6 +18,7 @@ public static class DependencyInjection
                 b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
 
         services.AddTransient<IProjectRepository, ProjectRepository>();
+        services.AddSingleton<IClock, SystemClock>();
         
         return services;
     }

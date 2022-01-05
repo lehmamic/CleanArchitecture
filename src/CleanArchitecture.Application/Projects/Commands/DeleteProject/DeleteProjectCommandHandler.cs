@@ -1,8 +1,4 @@
 using Ardalis.GuardClauses;
-using Ardalis.Result;
-using AutoMapper;
-using CleanArchitecture.Application.Projects.Commands.UpdateProject;
-using CleanArchitecture.Application.Projects.Dtos;
 using CleanArchitecture.Core.Projects;
 using MediatR;
 

@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.SharedKernel;
+﻿namespace CleanArchitecture.SharedKernel.Models;
 
 // This can be modified to BaseEntity<TId> to support multiple key types (e.g. Guid)
 public abstract class BaseEntity<TId>

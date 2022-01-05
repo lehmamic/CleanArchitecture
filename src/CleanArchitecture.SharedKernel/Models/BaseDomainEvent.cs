@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.SharedKernel;
+﻿namespace CleanArchitecture.SharedKernel.Models;
 
 public abstract class BaseDomainEvent
 {

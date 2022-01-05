@@ -6,5 +6,5 @@ namespace CleanArchitecture.Application.Projects.Commands.CreateProject;
 
 public class CreateProjectCommand : IRequest<Result<ProjectDto>>
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 }
