@@ -1,5 +1,5 @@
-using Ardalis.GuardClauses;
 using CleanArchitecture.Core.Projects;
+using Dawn;
 using MediatR;
 
 namespace CleanArchitecture.Application.Projects.Commands.DeleteToDoItem;
@@ -10,11 +10,13 @@ public class DeleteToDoItemCommandHandler : IRequestHandler<DeleteToDoItemComman
 
     public DeleteToDoItemCommandHandler(IProjectRepository repository)
     {
-        _repository = Guard.Against.Null(repository, nameof(repository));
+        _repository = Guard.Argument(repository, nameof(repository)).NotNull().Value;
     }
 
     public async Task<Unit> Handle(DeleteToDoItemCommand request, CancellationToken cancellationToken)
     {
+        Guard.Argument(request, nameof(request)).NotNull();
+
         var project = await _repository.GetProjectByIdAsync(request.ProjectId, cancellationToken);
         if (project is null)
         {

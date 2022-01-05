@@ -1,10 +1,9 @@
-using Ardalis.Result;
 using CleanArchitecture.Application.Projects.Dtos;
 using MediatR;
 
 namespace CleanArchitecture.Application.Projects.Commands.UpdateProject;
 
-public class UpdateProjectCommand : IRequest<Result<ProjectDto>>
+public class UpdateProjectCommand : IRequest<ProjectDto>
 {
     public Guid Id { get; set; }
 

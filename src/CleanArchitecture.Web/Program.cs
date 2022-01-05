@@ -2,6 +2,7 @@ using Ardalis.ListStartupServices;
 using CleanArchitecture.Application;
 using CleanArchitecture.Core;
 using CleanArchitecture.Infrastructure;
+using CleanArchitecture.Web.Filters;
 using FluentValidation.AspNetCore;
 using NodaTime;
 using NodaTime.Serialization.SystemTextJson;
@@ -14,12 +15,15 @@ builder.Host.UseSerilog((hostingContext, loggerConfiguration) => loggerConfigura
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
-    options.CheckConsentNeeded = context => true;
+    options.CheckConsentNeeded = _ => true;
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
 // Add services to the container.
-builder.Services.AddControllers()
+builder.Services.AddControllers(options =>
+    {
+        options.Filters.Add<ApiExceptionFilterAttribute>();
+    })
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
@@ -30,9 +34,9 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCore(builder.Configuration);
+builder.Services.AddCore();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddApplication();
 
 var app = builder.Build();
 

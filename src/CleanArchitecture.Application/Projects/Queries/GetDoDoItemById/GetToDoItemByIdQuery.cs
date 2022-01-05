@@ -1,10 +1,9 @@
-using Ardalis.Result;
 using CleanArchitecture.Application.Projects.Dtos;
 using MediatR;
 
 namespace CleanArchitecture.Application.Projects.Queries.GetDoDoItemById;
 
-public class GetToDoItemByIdQuery : IRequest<Result<ToDoItemDto>>
+public class GetToDoItemByIdQuery : IRequest<ToDoItemDto>
 {
     public Guid Id { get; set; }
 

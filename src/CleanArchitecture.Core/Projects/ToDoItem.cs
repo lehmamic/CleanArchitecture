@@ -1,7 +1,6 @@
-﻿using Ardalis.GuardClauses;
-using CleanArchitecture.Core.Projects.Events;
-using CleanArchitecture.SharedKernel;
+﻿using CleanArchitecture.Core.Projects.Events;
 using CleanArchitecture.SharedKernel.Models;
+using Dawn;
 
 namespace CleanArchitecture.Core.Projects;
 
@@ -15,12 +14,12 @@ public class ToDoItem : BaseEntity<Guid>
 
     public void UpdateTitle(string title)
     {
-        Title = Guard.Against.NullOrEmpty(title, nameof(title));
+        Title = Guard.Argument(title, nameof(title)).NotNull();
     }
     
     public void UpdateDescription(string description)
     {
-        Description = Guard.Against.NullOrEmpty(description, nameof(description));
+        Description = Guard.Argument(description, nameof(description)).NotNull();
     }
 
     public void MarkComplete()

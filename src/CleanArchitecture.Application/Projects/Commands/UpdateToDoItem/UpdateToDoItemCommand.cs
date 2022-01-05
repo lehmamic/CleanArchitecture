@@ -1,10 +1,9 @@
-using Ardalis.Result;
 using CleanArchitecture.Application.Projects.Dtos;
 using MediatR;
 
 namespace CleanArchitecture.Application.Projects.Commands.UpdateToDoItem;
 
-public class UpdateToDoItemCommand : IRequest<Result<ToDoItemDto>>
+public class UpdateToDoItemCommand : IRequest<ToDoItemDto>
 {
     public Guid Id { get; set; }
 

@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.SharedKernel;
-using CleanArchitecture.SharedKernel.Models;
+﻿using CleanArchitecture.SharedKernel.Models;
 
 namespace CleanArchitecture.Core.Projects.Events;
 

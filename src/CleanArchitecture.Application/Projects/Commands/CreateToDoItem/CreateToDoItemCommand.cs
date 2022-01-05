@@ -1,10 +1,9 @@
-using Ardalis.Result;
 using CleanArchitecture.Application.Projects.Dtos;
 using MediatR;
 
 namespace CleanArchitecture.Application.Projects.Commands.CreateToDoItem;
 
-public class CreateToDoItemCommand : IRequest<Result<ToDoItemDto>>
+public class CreateToDoItemCommand : IRequest<ToDoItemDto>
 {
     public Guid ProjectId { get; set; }
 

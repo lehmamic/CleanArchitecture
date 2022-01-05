@@ -1,35 +1,35 @@
-using Ardalis.GuardClauses;
-using Ardalis.Result;
 using AutoMapper;
 using CleanArchitecture.Application.Projects.Dtos;
 using CleanArchitecture.Core.Projects;
+using CleanArchitecture.SharedKernel.Exceptions;
+using Dawn;
 using MediatR;
 
 namespace CleanArchitecture.Application.Projects.Queries.GetDoDoItemById;
 
-public class GetToDoItemByIdQueryHandler : IRequestHandler<GetToDoItemByIdQuery, Result<ToDoItemDto>>
+public class GetToDoItemByIdQueryHandler : IRequestHandler<GetToDoItemByIdQuery, ToDoItemDto>
 {
     private readonly IProjectRepository _repository;
     private readonly IMapper _mapper;
 
     public GetToDoItemByIdQueryHandler(IProjectRepository repository, IMapper mapper)
     {
-        _repository = Guard.Against.Null(repository, nameof(repository));
-        _mapper = Guard.Against.Null(mapper, nameof(mapper));
+        _repository = Guard.Argument(repository, nameof(repository)).NotNull().Value;
+        _mapper = Guard.Argument(mapper, nameof(mapper)).NotNull().Value;
     }
 
-    public async Task<Result<ToDoItemDto>> Handle(GetToDoItemByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ToDoItemDto> Handle(GetToDoItemByIdQuery request, CancellationToken cancellationToken)
     {
         var project = await _repository.GetProjectByIdAsync(request.ProjectId, cancellationToken);
         if (project is null)
         {
-            return Result<ToDoItemDto>.NotFound();
+            throw new NotFoundException();
         }
 
         var toDoItem = project.Items.FirstOrDefault(i => i.Id == request.Id);
         if (toDoItem is null)
         {
-            return Result<ToDoItemDto>.NotFound();
+            throw new NotFoundException();
         }
 
         return _mapper.Map<ToDoItemDto>(toDoItem);

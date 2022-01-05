@@ -1,7 +1,6 @@
-﻿using Ardalis.GuardClauses;
-using CleanArchitecture.Core.Projects.Events;
-using CleanArchitecture.SharedKernel;
+﻿using CleanArchitecture.Core.Projects.Events;
 using CleanArchitecture.SharedKernel.Models;
+using Dawn;
 
 namespace CleanArchitecture.Core.Projects;
 
@@ -11,7 +10,7 @@ public class Project : BaseEntity<Guid>, IAggregateRoot
 
     public Project(string name)
     {
-        Name = Guard.Against.NullOrEmpty(name, nameof(name));
+        Name = Guard.Argument(name, nameof(name)).NotNull();
     }
 
     public string Name { get; private set; }
@@ -22,7 +21,7 @@ public class Project : BaseEntity<Guid>, IAggregateRoot
 
     public void AddItem(ToDoItem newItem)
     {
-        Guard.Against.Null(newItem, nameof(newItem));
+        Guard.Argument(newItem, nameof(newItem)).NotNull();
 
         _items.Add(newItem);
 
@@ -32,7 +31,7 @@ public class Project : BaseEntity<Guid>, IAggregateRoot
     
     public void RemoveItem(ToDoItem deletedItem)
     {
-        Guard.Against.Null(deletedItem, nameof(deletedItem));
+        Guard.Argument(deletedItem, nameof(deletedItem)).NotNull();
 
         _items.Remove(deletedItem);
 
@@ -42,6 +41,6 @@ public class Project : BaseEntity<Guid>, IAggregateRoot
 
     public void UpdateName(string newName)
     {
-        Name = Guard.Against.NullOrEmpty(newName, nameof(newName));
+        Name = Guard.Argument(newName, nameof(newName)).NotNull();
     }
 }

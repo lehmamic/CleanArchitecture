@@ -5,7 +5,6 @@ using CleanArchitecture.Application.Projects.Commands.UpdateProject;
 using CleanArchitecture.Application.Projects.Dtos;
 using CleanArchitecture.Application.Projects.Queries.GetProjectById;
 using CleanArchitecture.Application.Projects.Queries.GetProjects;
-using CleanArchitecture.Web.Utils;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,21 +25,21 @@ public class ProjectsController : ControllerBase
     public async Task<ActionResult<IImmutableList<ProjectDto>>> GetProjects()
     {
         var result = await _mediator.Send(new GetProjectsQuery());
-        return result.ToActionResult();
+        return Ok(result);
     }
 
     [HttpGet("{id}", Name = nameof(GetProject))]
     public async Task<ActionResult<ProjectDto>> GetProject([FromRoute] Guid id)
     {
         var result = await _mediator.Send(new GetProjectByIdQuery { Id = id });
-        return result.ToActionResult();
+        return Ok(result);
     }
 
     [HttpPost]
     public async Task<ActionResult<ProjectDto>> CreateProject([FromBody] CreateProjectCommand command)
     {
         var result = await _mediator.Send(command);
-        return result.ToCreatedActionResult(nameof(GetProject), () => new { id = result.Value.Id });
+        return Created(nameof(GetProject), () => new { id = result.Id });
     }
 
     [HttpPut("{id}")]
@@ -51,8 +50,8 @@ public class ProjectsController : ControllerBase
             return BadRequest();
         }
 
-        var result = await _mediator.Send(command);
-        return result.ToNoContentActionResult();
+        await _mediator.Send(command);
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
