@@ -1,0 +1,40 @@
+{
+  "plugins": ["prettier", "unused-imports"],
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "prettier",
+    "plugin:prettier/recommended"],
+  "rules": {
+    "unused-imports/no-unused-imports-ts": "warn",
+    "no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false
+      }
+    ],
+    "import/order": [
+      "warn",
+      {
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "import/namespace": "off",
+    "prettier/prettier": [
+      "warn",
+      {},
+      {
+        "usePrettierrc": true
+      }
+    ]
+  }
+}
