@@ -1,7 +1,9 @@
 using FluentValidation;
+using JetBrains.Annotations;
 
 namespace CleanArchitecture.Application.Projects.Commands.CreateProject;
 
+[UsedImplicitly]
 public class CreateProjectCommandValidator : AbstractValidator<CreateProjectCommand>
 {
     public CreateProjectCommandValidator()

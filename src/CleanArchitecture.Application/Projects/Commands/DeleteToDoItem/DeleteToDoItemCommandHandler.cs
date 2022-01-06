@@ -1,9 +1,11 @@
 using CleanArchitecture.Core.Projects;
 using Dawn;
+using JetBrains.Annotations;
 using MediatR;
 
 namespace CleanArchitecture.Application.Projects.Commands.DeleteToDoItem;
 
+[UsedImplicitly]
 public class DeleteToDoItemCommandHandler : IRequestHandler<DeleteToDoItemCommand, Unit>
 {
     private readonly IProjectRepository _repository;

@@ -26,21 +26,21 @@ import {
     UpdateProjectCommandToJSON,
 } from '../models';
 
-export interface GetProjectRequest {
+export interface ApiV1ProjectsIdDeleteRequest {
     id: string;
 }
 
-export interface ProjectsIdDeleteRequest {
-    id: string;
-}
-
-export interface ProjectsIdPutRequest {
+export interface ApiV1ProjectsIdPutRequest {
     id: string;
     updateProjectCommand?: UpdateProjectCommand;
 }
 
-export interface ProjectsPostRequest {
+export interface ApiV1ProjectsPostRequest {
     createProjectCommand?: CreateProjectCommand;
+}
+
+export interface GetProjectAsyncRequest {
+    id: string;
 }
 
 /**
@@ -50,41 +50,13 @@ export class ProjectsApi extends runtime.BaseAPI {
 
     /**
      */
-    async getProjectRaw(requestParameters: GetProjectRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ProjectDto>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getProject.');
-        }
-
+    async apiV1ProjectsGetRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<ProjectDto>>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/Projects/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ProjectDtoFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async getProject(requestParameters: GetProjectRequest, initOverrides?: RequestInit): Promise<ProjectDto> {
-        const response = await this.getProjectRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async projectsGetRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<ProjectDto>>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/Projects`,
+            path: `/api/v1/Projects`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -95,16 +67,16 @@ export class ProjectsApi extends runtime.BaseAPI {
 
     /**
      */
-    async projectsGet(initOverrides?: RequestInit): Promise<Array<ProjectDto>> {
-        const response = await this.projectsGetRaw(initOverrides);
+    async apiV1ProjectsGet(initOverrides?: RequestInit): Promise<Array<ProjectDto>> {
+        const response = await this.apiV1ProjectsGetRaw(initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async projectsIdDeleteRaw(requestParameters: ProjectsIdDeleteRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ProjectDto>> {
+    async apiV1ProjectsIdDeleteRaw(requestParameters: ApiV1ProjectsIdDeleteRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ProjectDto>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling projectsIdDelete.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiV1ProjectsIdDelete.');
         }
 
         const queryParameters: any = {};
@@ -112,7 +84,7 @@ export class ProjectsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/Projects/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/api/v1/Projects/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -123,16 +95,16 @@ export class ProjectsApi extends runtime.BaseAPI {
 
     /**
      */
-    async projectsIdDelete(requestParameters: ProjectsIdDeleteRequest, initOverrides?: RequestInit): Promise<ProjectDto> {
-        const response = await this.projectsIdDeleteRaw(requestParameters, initOverrides);
+    async apiV1ProjectsIdDelete(requestParameters: ApiV1ProjectsIdDeleteRequest, initOverrides?: RequestInit): Promise<ProjectDto> {
+        const response = await this.apiV1ProjectsIdDeleteRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async projectsIdPutRaw(requestParameters: ProjectsIdPutRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ProjectDto>> {
+    async apiV1ProjectsIdPutRaw(requestParameters: ApiV1ProjectsIdPutRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ProjectDto>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling projectsIdPut.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiV1ProjectsIdPut.');
         }
 
         const queryParameters: any = {};
@@ -142,7 +114,7 @@ export class ProjectsApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/Projects/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/api/v1/Projects/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -154,14 +126,14 @@ export class ProjectsApi extends runtime.BaseAPI {
 
     /**
      */
-    async projectsIdPut(requestParameters: ProjectsIdPutRequest, initOverrides?: RequestInit): Promise<ProjectDto> {
-        const response = await this.projectsIdPutRaw(requestParameters, initOverrides);
+    async apiV1ProjectsIdPut(requestParameters: ApiV1ProjectsIdPutRequest, initOverrides?: RequestInit): Promise<ProjectDto> {
+        const response = await this.apiV1ProjectsIdPutRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async projectsPostRaw(requestParameters: ProjectsPostRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ProjectDto>> {
+    async apiV1ProjectsPostRaw(requestParameters: ApiV1ProjectsPostRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ProjectDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -169,7 +141,7 @@ export class ProjectsApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/Projects`,
+            path: `/api/v1/Projects`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -181,8 +153,36 @@ export class ProjectsApi extends runtime.BaseAPI {
 
     /**
      */
-    async projectsPost(requestParameters: ProjectsPostRequest, initOverrides?: RequestInit): Promise<ProjectDto> {
-        const response = await this.projectsPostRaw(requestParameters, initOverrides);
+    async apiV1ProjectsPost(requestParameters: ApiV1ProjectsPostRequest, initOverrides?: RequestInit): Promise<ProjectDto> {
+        const response = await this.apiV1ProjectsPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getProjectAsyncRaw(requestParameters: GetProjectAsyncRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ProjectDto>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getProjectAsync.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/Projects/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ProjectDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getProjectAsync(requestParameters: GetProjectAsyncRequest, initOverrides?: RequestInit): Promise<ProjectDto> {
+        const response = await this.getProjectAsyncRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

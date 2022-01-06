@@ -3,10 +3,12 @@ using AutoMapper;
 using CleanArchitecture.Application.Projects.Dtos;
 using CleanArchitecture.Core.Projects;
 using Dawn;
+using JetBrains.Annotations;
 using MediatR;
 
 namespace CleanArchitecture.Application.Projects.Queries.GetProjects;
 
+[UsedImplicitly]
 public class GetProjectsQueryHandler : IRequestHandler<GetProjectsQuery, IImmutableList<ProjectDto>>
 {
     private readonly IProjectRepository _repository;

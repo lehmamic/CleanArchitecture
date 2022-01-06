@@ -3,10 +3,12 @@ using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Projects.Dtos;
 using CleanArchitecture.Core.Projects;
 using Dawn;
+using JetBrains.Annotations;
 using MediatR;
 
 namespace CleanArchitecture.Application.Projects.Queries.GetDoDoItemById;
 
+[UsedImplicitly]
 public class GetToDoItemByIdQueryHandler : IRequestHandler<GetToDoItemByIdQuery, ToDoItemDto>
 {
     private readonly IProjectRepository _repository;

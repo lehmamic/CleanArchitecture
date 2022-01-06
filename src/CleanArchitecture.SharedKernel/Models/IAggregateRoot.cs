@@ -1,5 +1,10 @@
-﻿namespace CleanArchitecture.SharedKernel.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace CleanArchitecture.SharedKernel.Models;
 
 // Apply this marker interface only to aggregate root entities
 // Repositories will only work with aggregate roots, not their children
-public interface IAggregateRoot { }
+[SuppressMessage("Design", "CA1040:Avoid empty interfaces", Justification = "This is a marker interface")]
+public interface IAggregateRoot
+{
+}

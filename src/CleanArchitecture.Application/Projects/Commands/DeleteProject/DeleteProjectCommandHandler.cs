@@ -1,9 +1,11 @@
 using CleanArchitecture.Core.Projects;
 using Dawn;
+using JetBrains.Annotations;
 using MediatR;
 
 namespace CleanArchitecture.Application.Projects.Commands.DeleteProject;
 
+[UsedImplicitly]
 public class DeleteProjectCommandHandler : IRequestHandler<DeleteProjectCommand>
 {
     private readonly IProjectRepository _repository;
@@ -22,7 +24,7 @@ public class DeleteProjectCommandHandler : IRequestHandler<DeleteProjectCommand>
         {
             await _repository.DeleteAsync(project, cancellationToken);
         }
-        
+
         return Unit.Value;
     }
 }

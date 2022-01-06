@@ -25,7 +25,7 @@ public class ProjectRepository : IProjectRepository
             .Include(p => p.Items)
             .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
-    
+
     public async Task<Project> AddProjectAsync(Project project, CancellationToken cancellationToken = default)
     {
         await _context.Projects.AddAsync(project, cancellationToken);
@@ -33,14 +33,14 @@ public class ProjectRepository : IProjectRepository
 
         return project;
     }
-    
-    public virtual async Task UpdateProjectAsync(Project project, CancellationToken cancellationToken = default)
+
+    public async Task UpdateProjectAsync(Project project, CancellationToken cancellationToken = default)
     {
         _context.Entry(project).State = EntityState.Modified;
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public virtual async Task DeleteAsync(Project project, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(Project project, CancellationToken cancellationToken = default)
     {
         _context.Remove(project);
         await _context.SaveChangesAsync(cancellationToken);

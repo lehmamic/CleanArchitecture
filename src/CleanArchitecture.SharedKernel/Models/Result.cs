@@ -1,16 +1,18 @@
-﻿namespace CleanArchitecture.SharedKernel.Models;
+﻿using System.Collections.Immutable;
+
+namespace CleanArchitecture.SharedKernel.Models;
 
 public class Result
 {
     internal Result(bool succeeded, IEnumerable<string> errors)
     {
         Succeeded = succeeded;
-        Errors = errors.ToArray();
+        Errors = errors.ToImmutableArray();
     }
 
     public bool Succeeded { get; set; }
 
-    public string[] Errors { get; set; }
+    public IImmutableList<string> Errors { get; set; }
 
     public static Result Success()
     {

@@ -16,7 +16,7 @@ public class ToDoItem : BaseEntity<Guid>
     {
         Title = Guard.Argument(title, nameof(title)).NotNull();
     }
-    
+
     public void UpdateDescription(string description)
     {
         Description = Guard.Argument(description, nameof(description)).NotNull();

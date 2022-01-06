@@ -1,9 +1,11 @@
 using AutoMapper;
 using CleanArchitecture.Application.Projects.Commands.CreateProject;
 using CleanArchitecture.Core.Projects;
+using JetBrains.Annotations;
 
 namespace CleanArchitecture.Application.Projects.Commands.CreateToDoItem;
 
+[UsedImplicitly]
 public class CreateToDoItemCommandMappingProfile : Profile
 {
     public CreateToDoItemCommandMappingProfile()

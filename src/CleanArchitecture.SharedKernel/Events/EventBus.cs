@@ -1,8 +1,7 @@
-using CleanArchitecture.SharedKernel.Events;
 using Dawn;
 using MediatR;
 
-namespace CleanArchitecture.Infrastructure.Events;
+namespace CleanArchitecture.SharedKernel.Events;
 
 public class EventBus : IEventBus
 {
@@ -11,8 +10,8 @@ public class EventBus : IEventBus
 
     public EventBus(IMediator mediator, IExternalEventProducer externalEventProducer)
     {
-        this._mediator = Guard.Argument(mediator, nameof(mediator)).NotNull().Value;
-        this._externalEventProducer = Guard.Argument(externalEventProducer, nameof(externalEventProducer)).NotNull().Value;
+        _mediator = Guard.Argument(mediator, nameof(mediator)).NotNull().Value;
+        _externalEventProducer = Guard.Argument(externalEventProducer, nameof(externalEventProducer)).NotNull().Value;
     }
 
     public async Task PublishAsync(IEvent @event, CancellationToken cancellationToken = default)

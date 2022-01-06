@@ -1,8 +1,10 @@
 using AutoMapper;
 using CleanArchitecture.Core.Projects;
+using JetBrains.Annotations;
 
 namespace CleanArchitecture.Application.Projects.Commands.CreateProject;
 
+[UsedImplicitly]
 public class CreateProjectCommandMappingProfile : Profile
 {
     public CreateProjectCommandMappingProfile()

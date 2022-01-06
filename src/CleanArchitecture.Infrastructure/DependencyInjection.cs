@@ -1,5 +1,6 @@
-﻿using CleanArchitecture.Core.Projects;
-using CleanArchitecture.Infrastructure.Events;
+﻿using CleanArchitecture.Application.Common.Emails;
+using CleanArchitecture.Core.Projects;
+using CleanArchitecture.Infrastructure.Emails;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Persistence.Repositories;
 using CleanArchitecture.Infrastructure.Security;
@@ -31,6 +32,7 @@ public static class DependencyInjection
         services.AddSingleton<ICurrentUserService, CurrentUserService>();
         services.AddSingleton<IExternalEventProducer, NulloExternalEventProducer>();
         services.AddSingleton<IEventBus, EventBus>();
+        services.AddSingleton<IEmailSender, NulloEmailSender>();
 
         services.AddHttpContextAccessor();
 
@@ -38,7 +40,7 @@ public static class DependencyInjection
         services.AddAuthentication()
             .AddIdentityServerJwt();
 
-        services.AddAuthorization(options => 
+        services.AddAuthorization(options =>
             options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
             */
 

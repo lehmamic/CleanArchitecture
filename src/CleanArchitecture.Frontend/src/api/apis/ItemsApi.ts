@@ -29,38 +29,38 @@ import {
     UpdateToDoItemCommandToJSON,
 } from '../models';
 
-export interface GetToDoItemRequest {
+export interface ApiV1ProjectsProjectIdIncompleteItemsGetRequest {
+    projectId: string;
+}
+
+export interface ApiV1ProjectsProjectIdItemsGetRequest {
+    projectId: string;
+}
+
+export interface ApiV1ProjectsProjectIdItemsIdCompletePatchRequest {
     projectId: string;
     id: string;
 }
 
-export interface ProjectsProjectIdIncompleteItemsGetRequest {
-    projectId: string;
-}
-
-export interface ProjectsProjectIdItemsGetRequest {
-    projectId: string;
-}
-
-export interface ProjectsProjectIdItemsIdCompletePatchRequest {
+export interface ApiV1ProjectsProjectIdItemsIdDeleteRequest {
     projectId: string;
     id: string;
 }
 
-export interface ProjectsProjectIdItemsIdDeleteRequest {
-    projectId: string;
-    id: string;
-}
-
-export interface ProjectsProjectIdItemsIdPutRequest {
+export interface ApiV1ProjectsProjectIdItemsIdPutRequest {
     projectId: string;
     id: string;
     updateToDoItemCommand?: UpdateToDoItemCommand;
 }
 
-export interface ProjectsProjectIdItemsPostRequest {
+export interface ApiV1ProjectsProjectIdItemsPostRequest {
     projectId: string;
     createToDoItemCommand?: CreateToDoItemCommand;
+}
+
+export interface GetToDoItemAsyncRequest {
+    projectId: string;
+    id: string;
 }
 
 /**
@@ -70,13 +70,9 @@ export class ItemsApi extends runtime.BaseAPI {
 
     /**
      */
-    async getToDoItemRaw(requestParameters: GetToDoItemRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ToDoItemDto>> {
+    async apiV1ProjectsProjectIdIncompleteItemsGetRaw(requestParameters: ApiV1ProjectsProjectIdIncompleteItemsGetRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<ToDoItemDto>>> {
         if (requestParameters.projectId === null || requestParameters.projectId === undefined) {
-            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling getToDoItem.');
-        }
-
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getToDoItem.');
+            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling apiV1ProjectsProjectIdIncompleteItemsGet.');
         }
 
         const queryParameters: any = {};
@@ -84,35 +80,7 @@ export class ItemsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/projects/{projectId}/Items/{id}`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ToDoItemDtoFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async getToDoItem(requestParameters: GetToDoItemRequest, initOverrides?: RequestInit): Promise<ToDoItemDto> {
-        const response = await this.getToDoItemRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async projectsProjectIdIncompleteItemsGetRaw(requestParameters: ProjectsProjectIdIncompleteItemsGetRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<ToDoItemDto>>> {
-        if (requestParameters.projectId === null || requestParameters.projectId === undefined) {
-            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling projectsProjectIdIncompleteItemsGet.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/projects/{projectId}/incomplete-items`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))),
+            path: `/api/v1/projects/{projectId}/incomplete-items`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -123,16 +91,16 @@ export class ItemsApi extends runtime.BaseAPI {
 
     /**
      */
-    async projectsProjectIdIncompleteItemsGet(requestParameters: ProjectsProjectIdIncompleteItemsGetRequest, initOverrides?: RequestInit): Promise<Array<ToDoItemDto>> {
-        const response = await this.projectsProjectIdIncompleteItemsGetRaw(requestParameters, initOverrides);
+    async apiV1ProjectsProjectIdIncompleteItemsGet(requestParameters: ApiV1ProjectsProjectIdIncompleteItemsGetRequest, initOverrides?: RequestInit): Promise<Array<ToDoItemDto>> {
+        const response = await this.apiV1ProjectsProjectIdIncompleteItemsGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async projectsProjectIdItemsGetRaw(requestParameters: ProjectsProjectIdItemsGetRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<ToDoItemDto>>> {
+    async apiV1ProjectsProjectIdItemsGetRaw(requestParameters: ApiV1ProjectsProjectIdItemsGetRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<Array<ToDoItemDto>>> {
         if (requestParameters.projectId === null || requestParameters.projectId === undefined) {
-            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling projectsProjectIdItemsGet.');
+            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling apiV1ProjectsProjectIdItemsGet.');
         }
 
         const queryParameters: any = {};
@@ -140,7 +108,7 @@ export class ItemsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/projects/{projectId}/Items`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))),
+            path: `/api/v1/projects/{projectId}/Items`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -151,20 +119,20 @@ export class ItemsApi extends runtime.BaseAPI {
 
     /**
      */
-    async projectsProjectIdItemsGet(requestParameters: ProjectsProjectIdItemsGetRequest, initOverrides?: RequestInit): Promise<Array<ToDoItemDto>> {
-        const response = await this.projectsProjectIdItemsGetRaw(requestParameters, initOverrides);
+    async apiV1ProjectsProjectIdItemsGet(requestParameters: ApiV1ProjectsProjectIdItemsGetRequest, initOverrides?: RequestInit): Promise<Array<ToDoItemDto>> {
+        const response = await this.apiV1ProjectsProjectIdItemsGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async projectsProjectIdItemsIdCompletePatchRaw(requestParameters: ProjectsProjectIdItemsIdCompletePatchRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ToDoItemDto>> {
+    async apiV1ProjectsProjectIdItemsIdCompletePatchRaw(requestParameters: ApiV1ProjectsProjectIdItemsIdCompletePatchRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ToDoItemDto>> {
         if (requestParameters.projectId === null || requestParameters.projectId === undefined) {
-            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling projectsProjectIdItemsIdCompletePatch.');
+            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling apiV1ProjectsProjectIdItemsIdCompletePatch.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling projectsProjectIdItemsIdCompletePatch.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiV1ProjectsProjectIdItemsIdCompletePatch.');
         }
 
         const queryParameters: any = {};
@@ -172,7 +140,7 @@ export class ItemsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/projects/{projectId}/Items/{id}/complete`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/api/v1/projects/{projectId}/Items/{id}/complete`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
@@ -183,20 +151,20 @@ export class ItemsApi extends runtime.BaseAPI {
 
     /**
      */
-    async projectsProjectIdItemsIdCompletePatch(requestParameters: ProjectsProjectIdItemsIdCompletePatchRequest, initOverrides?: RequestInit): Promise<ToDoItemDto> {
-        const response = await this.projectsProjectIdItemsIdCompletePatchRaw(requestParameters, initOverrides);
+    async apiV1ProjectsProjectIdItemsIdCompletePatch(requestParameters: ApiV1ProjectsProjectIdItemsIdCompletePatchRequest, initOverrides?: RequestInit): Promise<ToDoItemDto> {
+        const response = await this.apiV1ProjectsProjectIdItemsIdCompletePatchRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async projectsProjectIdItemsIdDeleteRaw(requestParameters: ProjectsProjectIdItemsIdDeleteRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ProjectDto>> {
+    async apiV1ProjectsProjectIdItemsIdDeleteRaw(requestParameters: ApiV1ProjectsProjectIdItemsIdDeleteRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ProjectDto>> {
         if (requestParameters.projectId === null || requestParameters.projectId === undefined) {
-            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling projectsProjectIdItemsIdDelete.');
+            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling apiV1ProjectsProjectIdItemsIdDelete.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling projectsProjectIdItemsIdDelete.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiV1ProjectsProjectIdItemsIdDelete.');
         }
 
         const queryParameters: any = {};
@@ -204,7 +172,7 @@ export class ItemsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/projects/{projectId}/Items/{id}`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/api/v1/projects/{projectId}/Items/{id}`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -215,20 +183,20 @@ export class ItemsApi extends runtime.BaseAPI {
 
     /**
      */
-    async projectsProjectIdItemsIdDelete(requestParameters: ProjectsProjectIdItemsIdDeleteRequest, initOverrides?: RequestInit): Promise<ProjectDto> {
-        const response = await this.projectsProjectIdItemsIdDeleteRaw(requestParameters, initOverrides);
+    async apiV1ProjectsProjectIdItemsIdDelete(requestParameters: ApiV1ProjectsProjectIdItemsIdDeleteRequest, initOverrides?: RequestInit): Promise<ProjectDto> {
+        const response = await this.apiV1ProjectsProjectIdItemsIdDeleteRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async projectsProjectIdItemsIdPutRaw(requestParameters: ProjectsProjectIdItemsIdPutRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ToDoItemDto>> {
+    async apiV1ProjectsProjectIdItemsIdPutRaw(requestParameters: ApiV1ProjectsProjectIdItemsIdPutRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ToDoItemDto>> {
         if (requestParameters.projectId === null || requestParameters.projectId === undefined) {
-            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling projectsProjectIdItemsIdPut.');
+            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling apiV1ProjectsProjectIdItemsIdPut.');
         }
 
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling projectsProjectIdItemsIdPut.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling apiV1ProjectsProjectIdItemsIdPut.');
         }
 
         const queryParameters: any = {};
@@ -238,7 +206,7 @@ export class ItemsApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/projects/{projectId}/Items/{id}`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/api/v1/projects/{projectId}/Items/{id}`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -250,16 +218,16 @@ export class ItemsApi extends runtime.BaseAPI {
 
     /**
      */
-    async projectsProjectIdItemsIdPut(requestParameters: ProjectsProjectIdItemsIdPutRequest, initOverrides?: RequestInit): Promise<ToDoItemDto> {
-        const response = await this.projectsProjectIdItemsIdPutRaw(requestParameters, initOverrides);
+    async apiV1ProjectsProjectIdItemsIdPut(requestParameters: ApiV1ProjectsProjectIdItemsIdPutRequest, initOverrides?: RequestInit): Promise<ToDoItemDto> {
+        const response = await this.apiV1ProjectsProjectIdItemsIdPutRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      */
-    async projectsProjectIdItemsPostRaw(requestParameters: ProjectsProjectIdItemsPostRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ToDoItemDto>> {
+    async apiV1ProjectsProjectIdItemsPostRaw(requestParameters: ApiV1ProjectsProjectIdItemsPostRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ToDoItemDto>> {
         if (requestParameters.projectId === null || requestParameters.projectId === undefined) {
-            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling projectsProjectIdItemsPost.');
+            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling apiV1ProjectsProjectIdItemsPost.');
         }
 
         const queryParameters: any = {};
@@ -269,7 +237,7 @@ export class ItemsApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/projects/{projectId}/Items`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))),
+            path: `/api/v1/projects/{projectId}/Items`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -281,8 +249,40 @@ export class ItemsApi extends runtime.BaseAPI {
 
     /**
      */
-    async projectsProjectIdItemsPost(requestParameters: ProjectsProjectIdItemsPostRequest, initOverrides?: RequestInit): Promise<ToDoItemDto> {
-        const response = await this.projectsProjectIdItemsPostRaw(requestParameters, initOverrides);
+    async apiV1ProjectsProjectIdItemsPost(requestParameters: ApiV1ProjectsProjectIdItemsPostRequest, initOverrides?: RequestInit): Promise<ToDoItemDto> {
+        const response = await this.apiV1ProjectsProjectIdItemsPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getToDoItemAsyncRaw(requestParameters: GetToDoItemAsyncRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<ToDoItemDto>> {
+        if (requestParameters.projectId === null || requestParameters.projectId === undefined) {
+            throw new runtime.RequiredError('projectId','Required parameter requestParameters.projectId was null or undefined when calling getToDoItemAsync.');
+        }
+
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getToDoItemAsync.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/api/v1/projects/{projectId}/Items/{id}`.replace(`{${"projectId"}}`, encodeURIComponent(String(requestParameters.projectId))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ToDoItemDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getToDoItemAsync(requestParameters: GetToDoItemAsyncRequest, initOverrides?: RequestInit): Promise<ToDoItemDto> {
+        const response = await this.getToDoItemAsyncRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

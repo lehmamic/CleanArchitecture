@@ -3,6 +3,7 @@ using CleanArchitecture.Core.Projects;
 using CleanArchitecture.SharedKernel.Events;
 using CleanArchitecture.SharedKernel.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Threading;
 
 namespace CleanArchitecture.Infrastructure.Persistence;
 
@@ -20,16 +21,9 @@ public class AppDbContext : DbContext
 
     public DbSet<Project> Projects => Set<Project>();
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        base.OnModelCreating(modelBuilder);
-
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-    }
-
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-    {
-        int result = await base.SaveChangesAsync(cancellationToken)
+        var result = await base.SaveChangesAsync(cancellationToken)
             .ConfigureAwait(false);
 
         // ignore events if no dispatcher provided
@@ -60,6 +54,15 @@ public class AppDbContext : DbContext
 
     public override int SaveChanges()
     {
-    return SaveChangesAsync().GetAwaiter().GetResult();
+        using var context = new JoinableTaskContext();
+        var jtf = new JoinableTaskFactory(context);
+        return jtf.Run(() => SaveChangesAsync());
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

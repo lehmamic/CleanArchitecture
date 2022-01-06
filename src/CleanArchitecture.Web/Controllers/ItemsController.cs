@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace CleanArchitecture.Web.Controllers;
 
 [ApiController]
-[Route("projects/{projectId}/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/projects/{projectId}/[controller]")]
 public class ItemsController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -23,28 +24,28 @@ public class ItemsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IImmutableList<ToDoItemDto>>> GetToDoItems([FromRoute] Guid projectId)
+    public async Task<ActionResult<IImmutableList<ToDoItemDto>>> GetToDoItemsAsync([FromRoute] Guid projectId)
     {
         var result = await _mediator.Send(new GetToDoItemsQuery { ProjectId = projectId });
         return Ok(result);
     }
 
-    [HttpGet("/projects/{projectId}/incomplete-items")]
-    public async Task<ActionResult<IImmutableList<ToDoItemDto>>> GetIncompleteToDoItems([FromRoute] Guid projectId)
+    [HttpGet("/api/v{version:apiVersion}/projects/{projectId}/incomplete-items")]
+    public async Task<ActionResult<IImmutableList<ToDoItemDto>>> GetIncompleteToDoItemsAsync([FromRoute] Guid projectId)
     {
-        var result = await _mediator.Send(new GetToDoItemsQuery { ProjectId = projectId, Completed = false});
+        var result = await _mediator.Send(new GetToDoItemsQuery { ProjectId = projectId, Completed = false });
         return Ok(result);
     }
 
-    [HttpGet("{id}", Name = nameof(GetToDoItem))]
-    public async Task<ActionResult<ToDoItemDto>> GetToDoItem([FromRoute] Guid projectId, [FromRoute] Guid id)
+    [HttpGet("{id}", Name = nameof(GetToDoItemAsync))]
+    public async Task<ActionResult<ToDoItemDto>> GetToDoItemAsync([FromRoute] Guid projectId, [FromRoute] Guid id)
     {
         var result = await _mediator.Send(new GetToDoItemByIdQuery { ProjectId = projectId, Id = id });
         return Ok(result);
     }
 
     [HttpPost]
-    public async Task<ActionResult<ToDoItemDto>> CreateToDoItem([FromRoute] Guid projectId, [FromBody] CreateToDoItemCommand command)
+    public async Task<ActionResult<ToDoItemDto>> CreateToDoItemAsync([FromRoute] Guid projectId, [FromBody] CreateToDoItemCommand command)
     {
         if (projectId != command.ProjectId)
         {
@@ -52,11 +53,11 @@ public class ItemsController : ControllerBase
         }
 
         var result = await _mediator.Send(command);
-        return Created(nameof(GetToDoItem), () => new { projectId = command.ProjectId , id = result.Id });
+        return CreatedAtRoute(nameof(GetToDoItemAsync), () => new { projectId = command.ProjectId, id = result.Id });
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<ToDoItemDto>> UpdateToDoItem([FromRoute] Guid projectId, [FromRoute] Guid id, [FromBody] UpdateToDoItemCommand command)
+    public async Task<ActionResult<ToDoItemDto>> UpdateToDoItemAsync([FromRoute] Guid projectId, [FromRoute] Guid id, [FromBody] UpdateToDoItemCommand command)
     {
         if (id != command.Id)
         {
@@ -72,17 +73,17 @@ public class ItemsController : ControllerBase
 
         return NoContent();
     }
-    
+
     [HttpPatch("{id}/complete")]
-    public async Task<ActionResult<ToDoItemDto>> CompleteToDoItem([FromRoute] Guid projectId, [FromRoute] Guid id)
+    public async Task<ActionResult<ToDoItemDto>> CompleteToDoItemAsync([FromRoute] Guid projectId, [FromRoute] Guid id)
     {
-        await _mediator.Send(new CompleteToDoItemCommand { ProjectId = projectId, Id = id});
-        
+        await _mediator.Send(new CompleteToDoItemCommand { ProjectId = projectId, Id = id });
+
         return NoContent();
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<ProjectDto>> DeleteToDoItem([FromRoute] Guid projectId, [FromRoute] Guid id)
+    public async Task<ActionResult<ProjectDto>> DeleteToDoItemAsync([FromRoute] Guid projectId, [FromRoute] Guid id)
     {
         await _mediator.Send(new DeleteToDoItemCommand { ProjectId = projectId, Id = id });
         return NoContent();

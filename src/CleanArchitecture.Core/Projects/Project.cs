@@ -28,7 +28,7 @@ public class Project : BaseEntity<Guid>, IAggregateRoot
         var newItemAddedEvent = new NewItemAddedEvent(this, newItem);
         Events.Add(newItemAddedEvent);
     }
-    
+
     public void RemoveItem(ToDoItem deletedItem)
     {
         Guard.Argument(deletedItem, nameof(deletedItem)).NotNull();

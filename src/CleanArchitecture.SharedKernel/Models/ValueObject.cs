@@ -28,9 +28,9 @@ public abstract class ValueObject : IEquatable<ValueObject>
         return !(obj1 == obj2);
     }
 
-    public bool Equals(ValueObject? obj)
+    public bool Equals(ValueObject? other)
     {
-        return Equals(obj as object);
+        return Equals(other as object);
     }
 
     public override bool Equals(object? obj)
@@ -43,49 +43,12 @@ public abstract class ValueObject : IEquatable<ValueObject>
         return GetProperties().All(p => PropertiesAreEqual(obj, p)) && GetFields().All(f => FieldsAreEqual(obj, f));
     }
 
-    private bool PropertiesAreEqual(object obj, PropertyInfo p)
-    {
-        return Equals(p.GetValue(this, null), p.GetValue(obj, null));
-    }
-
-    private bool FieldsAreEqual(object obj, FieldInfo f)
-    {
-        return Equals(f.GetValue(this), f.GetValue(obj));
-    }
-
-    private IEnumerable<PropertyInfo> GetProperties()
-    {
-        if (this._properties == null)
-        {
-            this._properties = GetType()
-                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(p => p.GetCustomAttribute(typeof(IgnoreMemberAttribute)) == null)
-                .ToList();
-
-            // Not available in Core
-            // !Attribute.IsDefined(p, typeof(IgnoreMemberAttribute))).ToList();
-        }
-
-        return this._properties;
-    }
-
-    private IEnumerable<FieldInfo> GetFields()
-    {
-        if (this._fields == null)
-        {
-          this._fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.Public)
-              .Where(p => p.GetCustomAttribute(typeof(IgnoreMemberAttribute)) == null)
-              .ToList();
-        }
-
-        return this._fields;
-    }
-
     public override int GetHashCode()
     {
-        unchecked   //allow overflow
+        // allow overflow
+        unchecked
         {
-            int hash = 17;
+            var hash = 17;
             foreach (var prop in GetProperties())
             {
                 var value = prop.GetValue(this, null);
@@ -102,10 +65,45 @@ public abstract class ValueObject : IEquatable<ValueObject>
         }
     }
 
-    private int HashValue(int seed, object? value)
+    private static int HashValue(int seed, object? value)
     {
         var currentHash = value?.GetHashCode() ?? 0;
 
-        return seed * 23 + currentHash;
+        return (seed * 23) + currentHash;
+    }
+
+    private bool PropertiesAreEqual(object obj, PropertyInfo p)
+    {
+        return Equals(p.GetValue(this, null), p.GetValue(obj, null));
+    }
+
+    private bool FieldsAreEqual(object obj, FieldInfo f)
+    {
+        return Equals(f.GetValue(this), f.GetValue(obj));
+    }
+
+    private IEnumerable<PropertyInfo> GetProperties()
+    {
+        if (_properties == null)
+        {
+            _properties = GetType()
+                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                .Where(p => p.GetCustomAttribute(typeof(IgnoreMemberAttribute)) == null)
+                .ToList();
+        }
+
+        return _properties;
+    }
+
+    private IEnumerable<FieldInfo> GetFields()
+    {
+        if (_fields == null)
+        {
+            _fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.Public)
+                .Where(p => p.GetCustomAttribute(typeof(IgnoreMemberAttribute)) == null)
+                .ToList();
+        }
+
+        return _fields;
     }
 }
