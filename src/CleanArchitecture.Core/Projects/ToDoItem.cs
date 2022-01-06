@@ -12,23 +12,29 @@ public class ToDoItem : BaseEntity<Guid>
 
     public bool IsDone { get; private set; }
 
-    public void UpdateTitle(string title)
+    public ToDoItem UpdateTitle(string title)
     {
         Title = Guard.Argument(title, nameof(title)).NotNull();
+
+        return this;
     }
 
-    public void UpdateDescription(string description)
+    public ToDoItem UpdateDescription(string description)
     {
         Description = Guard.Argument(description, nameof(description)).NotNull();
+
+        return this;
     }
 
-    public void MarkComplete()
+    public ToDoItem MarkComplete()
     {
         if (!IsDone)
         {
             IsDone = true;
             Events.Add(new ToDoItemCompletedEvent(this));
         }
+
+        return this;
     }
 
     public override string ToString()

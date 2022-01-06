@@ -19,7 +19,7 @@ public class Project : BaseEntity<Guid>, IAggregateRoot
 
     public ProjectStatus Status => _items.All(i => i.IsDone) ? ProjectStatus.Complete : ProjectStatus.InProgress;
 
-    public void AddItem(ToDoItem newItem)
+    public Project AddItem(ToDoItem newItem)
     {
         Guard.Argument(newItem, nameof(newItem)).NotNull();
 
@@ -27,9 +27,11 @@ public class Project : BaseEntity<Guid>, IAggregateRoot
 
         var newItemAddedEvent = new NewItemAddedEvent(this, newItem);
         Events.Add(newItemAddedEvent);
+
+        return this;
     }
 
-    public void RemoveItem(ToDoItem deletedItem)
+    public Project RemoveItem(ToDoItem deletedItem)
     {
         Guard.Argument(deletedItem, nameof(deletedItem)).NotNull();
 
@@ -37,10 +39,14 @@ public class Project : BaseEntity<Guid>, IAggregateRoot
 
         var itemRemovedEvent = new ItemRemovedEvent(this, deletedItem);
         Events.Add(itemRemovedEvent);
+
+        return this;
     }
 
-    public void UpdateName(string newName)
+    public Project UpdateName(string newName)
     {
         Name = Guard.Argument(newName, nameof(newName)).NotNull();
+
+        return this;
     }
 }

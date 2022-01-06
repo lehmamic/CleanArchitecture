@@ -293,6 +293,15 @@ dotnet_diagnostic.cs1591.severity = none # CS1591: Missing XML comment for publi
 dotnet_code_quality.ca1711.allowed_suffixes = EventHandler
 
 ###############################
+# Test Exceptions             #
+###############################
+[*Tests/**.cs]
+dotnet_diagnostic.ca1307.severity=silent # CA1307: Specify StringComparison
+dotnet_diagnostic.ca1707.severity=none # CA1707: Identifiers should not contain underscores
+dotnet_diagnostic.vsthrd002.severity=none # VSTHRD002: Avoid problematic synchronous waits
+dotnet_diagnostic.vsthrd200.severity=none # VSTHRD200: Async Suffix
+
+###############################
 # VB Coding Conventions       #
 ###############################
 [*.vb]
