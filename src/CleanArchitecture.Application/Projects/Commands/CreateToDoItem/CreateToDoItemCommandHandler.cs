@@ -1,7 +1,7 @@
 using AutoMapper;
+using CleanArchitecture.Application.Common.Exceptions;
 using CleanArchitecture.Application.Projects.Dtos;
 using CleanArchitecture.Core.Projects;
-using CleanArchitecture.SharedKernel.Exceptions;
 using Dawn;
 using MediatR;
 

@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.SharedKernel.Exceptions;
+﻿namespace CleanArchitecture.Application.Common.Exceptions;
 
 public class NotFoundException : Exception
 {

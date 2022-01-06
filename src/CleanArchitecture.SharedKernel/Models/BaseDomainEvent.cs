@@ -1,6 +1,9 @@
-﻿namespace CleanArchitecture.SharedKernel.Models;
+﻿using CleanArchitecture.SharedKernel.Events;
+using NodaTime;
 
-public abstract class BaseDomainEvent
+namespace CleanArchitecture.SharedKernel.Models;
+
+public abstract class BaseDomainEvent : IEvent
 {
-  public DateTime DateOccurred { get; protected set; } = DateTime.UtcNow;
+    public Instant Timestamp { get; protected set; } = SystemClock.Instance.GetCurrentInstant();
 }

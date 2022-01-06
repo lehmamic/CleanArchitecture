@@ -1,8 +1,10 @@
 ﻿using CleanArchitecture.Core.Projects;
+using CleanArchitecture.Infrastructure.Events;
 using CleanArchitecture.Infrastructure.Persistence;
 using CleanArchitecture.Infrastructure.Persistence.Repositories;
 using CleanArchitecture.Infrastructure.Security;
 using CleanArchitecture.SharedKernel.Auth;
+using CleanArchitecture.SharedKernel.Events;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,12 +19,18 @@ public static class DependencyInjection
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(
                 configuration.GetConnectionString("DefaultConnection"),
-                b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
+                b =>
+                {
+                    b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName);
+                    b.UseNodaTime();
+                }));
 
         services.AddTransient<IProjectRepository, ProjectRepository>();
         services.AddSingleton<IClock>(SystemClock.Instance);
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddSingleton<ICurrentUserService, CurrentUserService>();
+        services.AddSingleton<IExternalEventProducer, NulloExternalEventProducer>();
+        services.AddSingleton<IEventBus, EventBus>();
 
         services.AddHttpContextAccessor();
 
