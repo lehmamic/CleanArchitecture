@@ -1,5 +1,6 @@
 using CleanArchitecture.Core.Projects.Events;
-using CleanArchitecture.TestingSupport.Fakers.Projects;
+using CleanArchitecture.Testing.Support.Fakers.Projects;
+using CleanArchitecture.Testing.Support.Fakers.Projects.Entities;
 using FluentAssertions;
 using Xunit;
 

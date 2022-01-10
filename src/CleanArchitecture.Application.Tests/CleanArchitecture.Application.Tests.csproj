@@ -23,7 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CleanArchitecture.Application\CleanArchitecture.Application.csproj" />
-      <ProjectReference Include="..\CleanArchitecture.TestingSupport\CleanArchitecture.TestingSupport.csproj" />
+      <ProjectReference Include="..\CleanArchitecture.Testing.Support\CleanArchitecture.Testing.Support.csproj" />
     </ItemGroup>
 
 </Project>

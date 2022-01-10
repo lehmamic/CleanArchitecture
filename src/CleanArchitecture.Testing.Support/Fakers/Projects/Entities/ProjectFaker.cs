@@ -1,7 +1,7 @@
 using AutoBogus;
 using CleanArchitecture.Core.Projects;
 
-namespace CleanArchitecture.TestingSupport.Fakers.Projects;
+namespace CleanArchitecture.Testing.Support.Fakers.Projects.Entities;
 
 public sealed class ProjectFaker : AutoFaker<Project>
 {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Application.Projects.Dtos;
-using CleanArchitecture.TestingSupport.Fakers.Projects;
+using CleanArchitecture.Testing.Support.Fakers.Projects;
+using CleanArchitecture.Testing.Support.Fakers.Projects.Entities;
 using Xunit;
 
 namespace CleanArchitecture.Application.Tests;
