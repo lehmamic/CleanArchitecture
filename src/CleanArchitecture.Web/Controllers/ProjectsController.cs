@@ -40,7 +40,7 @@ public class ProjectsController : ControllerBase
     public async Task<ActionResult<ProjectDto>> CreateProjectAsync([FromBody] CreateProjectCommand command)
     {
         var result = await _mediator.Send(command);
-        return CreatedAtRoute(nameof(GetProjectAsync), () => new { id = result.Id });
+        return CreatedAtRoute(nameof(GetProjectAsync), new { id = result.Id }, result);
     }
 
     [HttpPut("{id}")]
