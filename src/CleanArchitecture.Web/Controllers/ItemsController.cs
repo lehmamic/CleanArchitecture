@@ -53,7 +53,7 @@ public class ItemsController : ControllerBase
         }
 
         var result = await _mediator.Send(command);
-        return CreatedAtRoute(nameof(GetToDoItemAsync), () => new { projectId = command.ProjectId, id = result.Id });
+        return CreatedAtRoute(nameof(GetToDoItemAsync), new { projectId = command.ProjectId, id = result.Id }, result);
     }
 
     [HttpPut("{id}")]
