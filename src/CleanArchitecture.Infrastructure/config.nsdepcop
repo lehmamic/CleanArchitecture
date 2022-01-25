@@ -1,0 +1,8 @@
+<NsDepCopConfig InheritanceDepth="1">
+    <Allowed From="*" To="CleanArchitecture.SharedKernel.*" />
+    <Allowed From="*" To="CleanArchitecture.Core.*" />
+    <Allowed From="*" To="CleanArchitecture.Application.*" />
+    <Allowed From="*" To="CleanArchitecture.Infrastructure.*" />
+    <Allowed From="*" To="Microsoft.*" />
+    <Allowed From="CleanArchitecture.Infrastructure" To="Microsoft.Extensions.DependencyInjection" />
+</NsDepCopConfig>

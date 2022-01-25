@@ -1,0 +1,7 @@
+<NsDepCopConfig ChildCanDependOnParentImplicitly="true">
+  <Allowed From="*" To="System.*" />
+  <Allowed From="*" To="NodaTime.*" />
+  <Allowed From="*" To="Dawn.*" />
+  <Allowed From="*" To="JetBrains.*" />
+  <Allowed From="*" To="Microsoft.Extensions.Logging.*" />
+</NsDepCopConfig>

@@ -1,0 +1,10 @@
+<NsDepCopConfig InheritanceDepth="1">
+    <Allowed From="*" To="CleanArchitecture.SharedKernel.*" />
+    <Allowed From="*" To="CleanArchitecture.Core.*" />
+    <Allowed From="*" To="CleanArchitecture.Application.*" />
+    <Allowed From="CleanArchitecture.Application" To="Microsoft.Extensions.DependencyInjection" />
+
+    <Allowed From="*" To="AutoMapper.*" />
+    <Allowed From="*" To="MediatR.*" />
+    <Allowed From="*" To="FluentValidation.*" />
+</NsDepCopConfig>

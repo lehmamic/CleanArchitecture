@@ -1,0 +1,7 @@
+<NsDepCopConfig InheritanceDepth="1">
+    <Allowed From="*" To="CleanArchitecture.Core.*" />
+    <Allowed From="*" To="CleanArchitecture.Application.*" />
+    <Allowed From="*" To="CleanArchitecture.Infrastructure.*" />
+    <Allowed From="*" To="MediatR.*" />
+    <Allowed From="*" To="Microsoft.*" />
+</NsDepCopConfig>

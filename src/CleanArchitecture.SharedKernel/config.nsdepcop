@@ -1,0 +1,4 @@
+<NsDepCopConfig InheritanceDepth="1">
+    <Allowed From="CleanArchitecture.SharedKernel.*" To="CleanArchitecture.SharedKernel.*" />
+    <Allowed From="CleanArchitecture.SharedKernel.Events" To="MediatR.*" />
+</NsDepCopConfig>
