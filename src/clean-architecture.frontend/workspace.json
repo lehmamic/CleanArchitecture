@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "projects": {
+    "angular-app": "packages/angular-app",
+    "angular-app-e2e": "packages/angular-app-e2e",
+    "api-angular": "packages/api-angular",
+    "api-fetch": "packages/api-fetch",
+    "api-spec": "packages/api-spec",
+    "react-app": "packages/react-app",
+    "react-app-e2e": "packages/react-app-e2e"
+  }
+}

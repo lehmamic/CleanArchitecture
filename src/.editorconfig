@@ -262,9 +262,9 @@ dotnet_diagnostic.cs1591.severity = none # CS1591: Missing XML comment for publi
 
 dotnet_code_quality.ca1711.allowed_suffixes = EventHandler
 
-dotnet_diagnostic.IDE0005O=error # Remove unnecessary import (IDE0005O)
-dotnet_diagnostic.IDE0051=error #Remove unused private member (IDE0051)
-dotnet_diagnostic.IDE0060=error # Remove unused parameter (IDE0060)
+dotnet_diagnostic.IDE0005=warning # Remove unnecessary import (IDE0005)
+dotnet_diagnostic.IDE0051=warning #Remove unused private member (IDE0051)
+dotnet_diagnostic.IDE0060=warning # Remove unused parameter (IDE0060)
 
 # NSDEPCOP01: Illegal namespace reference.
 dotnet_diagnostic.NSDEPCOP01.severity = error
