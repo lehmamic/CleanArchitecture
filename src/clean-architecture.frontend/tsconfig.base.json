@@ -20,6 +20,9 @@
       ],
       "@clean-architecture.frontend/api-fetch": [
         "packages/api-fetch/src/index.ts"
+      ],
+      "@clean-architecture.frontend/ngrx-query": [
+        "packages/ngrx-query/src/index.ts"
       ]
     }
   },

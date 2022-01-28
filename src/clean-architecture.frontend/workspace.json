@@ -6,6 +6,7 @@
     "api-angular": "packages/api-angular",
     "api-fetch": "packages/api-fetch",
     "api-spec": "packages/api-spec",
+    "ngrx-query": "packages/ngrx-query",
     "react-app": "packages/react-app",
     "react-app-e2e": "packages/react-app-e2e"
   }
