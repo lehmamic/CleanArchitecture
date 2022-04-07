@@ -1,0 +1,15 @@
+{
+  "root": "packages/api-spec",
+  "sourceRoot": "packages/api-spec/src",
+  "projectType": "library",
+  "targets": {
+    "download": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "cwd": "packages/api-spec",
+        "command": "pwd && node ./download-api-spec.js"
+      }
+    }
+  },
+  "tags": []
+}

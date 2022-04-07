@@ -1,0 +1,24 @@
+{
+  "root": "packages/api-angular",
+  "sourceRoot": "packages/api-angular/src",
+  "projectType": "library",
+  "targets": {
+    "generate-sources": {
+      "executor": "@trumbitta/nx-plugin-openapi:generate-api-lib-sources",
+      "options": {
+        "generator": "typescript-angular",
+        "sourceSpecPathOrUrl": "packages/api-spec/src/api-spec.openapi.json",
+        "additionalProperties": "",
+        "globalProperties": ""
+      },
+      "dependsOn": [
+        {
+          "target": "download",
+          "projects": "dependencies"
+        }
+      ]
+    }
+  },
+  "implicitDependencies": ["api-spec"],
+  "tags": []
+}

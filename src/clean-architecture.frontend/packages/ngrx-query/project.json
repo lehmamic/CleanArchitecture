@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "packages/ngrx-query",
+  "sourceRoot": "packages/ngrx-query/src",
+  "prefix": "clean-architecture.frontend",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/ngrx-query"],
+      "options": {
+        "jestConfig": "packages/ngrx-query/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "packages/ngrx-query/src/**/*.ts",
+          "packages/ngrx-query/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

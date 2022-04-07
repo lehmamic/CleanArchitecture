@@ -1,0 +1,13 @@
+.openapi-generator-ignore
+apis/ItemsApi.ts
+apis/ProjectsApi.ts
+apis/index.ts
+index.ts
+models/CreateProjectCommand.ts
+models/CreateToDoItemCommand.ts
+models/ProjectDto.ts
+models/ToDoItemDto.ts
+models/UpdateProjectCommand.ts
+models/UpdateToDoItemCommand.ts
+models/index.ts
+runtime.ts
